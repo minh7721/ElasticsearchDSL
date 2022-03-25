@@ -11,8 +11,8 @@
 
 namespace ONGR\ElasticsearchDSL\Tests\Functional;
 
-use Elasticsearch\Client;
-use Elasticsearch\ClientBuilder;
+use Elastic\Elasticsearch\Client;
+use Elastic\Elasticsearch\ClientBuilder;
 use ONGR\ElasticsearchDSL\Search;
 use PHPUnit\Framework\TestCase;
 
@@ -54,7 +54,6 @@ abstract class AbstractElasticsearchTestCase extends TestCase
                 $bulkBody[] = [
                    'index' => [
                         '_index' => self::INDEX_NAME,
-                        '_type' => $type,
                         '_id' => $id,
                     ]
                 ];
@@ -119,22 +118,23 @@ abstract class AbstractElasticsearchTestCase extends TestCase
      * Execute search to the elasticsearch and handle results.
      *
      * @param Search $search Search object.
-     * @param null $type Types to search. Can be several types split by comma.
      * @param bool $returnRaw Return raw response from the client.
      * @return array
+     * @throws \Elastic\Elasticsearch\Exception\ClientResponseException
+     * @throws \Elastic\Elasticsearch\Exception\MissingParameterException
+     * @throws \Elastic\Elasticsearch\Exception\ServerResponseException
      */
-    protected function executeSearch(Search $search, $type = null, $returnRaw = false)
+    protected function executeSearch(Search $search, bool $returnRaw = false): array
     {
         $response = $this->client->search(
             array_filter([
                 'index' => self::INDEX_NAME,
-                'type' => $type,
                 'body' => $search->toArray(),
             ])
         );
 
         if ($returnRaw) {
-            return $response;
+            return $response->asArray();
         }
 
         $documents = [];
