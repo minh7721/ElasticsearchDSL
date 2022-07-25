@@ -12,19 +12,34 @@
 namespace ONGR\ElasticsearchDSL\Serializer;
 
 use ONGR\ElasticsearchDSL\Serializer\Normalizer\OrderedNormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Serializer;
 
 /**
  * Custom serializer which orders data before normalization.
  */
-class OrderedSerializer extends Serializer
+class OrderedSerializer implements NormalizerInterface, DenormalizerInterface
 {
+    /**
+     * @var Serializer
+     */
+    private $serializer;
+
+    /**
+     * @param array<NormalizerInterface|DenormalizerInterface> $normalizers
+     */
+    public function __construct(array $normalizers = [])
+    {
+        $this->serializer = new Serializer($normalizers);
+    }
+
     /**
      * {@inheritdoc}
      */
     public function normalize($data, $format = null, array $context = [])
     {
-        return parent::normalize(
+        return $this->serializer->normalize(
             is_array($data) ? $this->order($data) : $data,
             $format,
             $context
@@ -36,7 +51,7 @@ class OrderedSerializer extends Serializer
      */
     public function denormalize($data, $type, $format = null, array $context = [])
     {
-        return parent::denormalize(
+        return $this->serializer->denormalize(
             is_array($data) ? $this->order($data) : $data,
             $type,
             $format,
@@ -84,5 +99,21 @@ class OrderedSerializer extends Serializer
                 return $value instanceof OrderedNormalizerInterface;
             }
         );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function supportsDenormalization($data, $type, $format = null)
+    {
+        return $this->serializer->supportsDenormalization($data, $format);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function supportsNormalization($data, $format = null)
+    {
+        return $this->serializer->supportsNormalization($data, $format);
     }
 }
