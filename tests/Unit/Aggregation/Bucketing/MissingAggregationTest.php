@@ -20,8 +20,8 @@ class MissingAggregationTest extends \PHPUnit\Framework\TestCase
      */
     public function testIfExceptionIsThrown()
     {
-        $this->expectExceptionMessage("Missing aggregation must have a field set.");
         $this->expectException(\LogicException::class);
+        $this->expectExceptionMessage('Missing aggregation must have a field set.');
         $agg = new MissingAggregation('test_agg');
         $agg->getArray();
     }

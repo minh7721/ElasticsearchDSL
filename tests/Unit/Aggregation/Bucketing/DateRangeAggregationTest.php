@@ -20,8 +20,8 @@ class DateRangeAggregationTest extends \PHPUnit\Framework\TestCase
      */
     public function testIfExceptionIsThrownWhenNoParametersAreSet()
     {
-        $this->expectExceptionMessage("Date range aggregation must have field, format set and range added.");
         $this->expectException(\LogicException::class);
+        $this->expectExceptionMessage('Date range aggregation must have field, format set and range added.');
         $agg = new DateRangeAggregation('test_agg');
         $agg->getArray();
     }
@@ -31,8 +31,8 @@ class DateRangeAggregationTest extends \PHPUnit\Framework\TestCase
      */
     public function testIfExceptionIsThrownWhenBothRangesAreNull()
     {
-        $this->expectExceptionMessage("Either from or to must be set. Both cannot be null.");
         $this->expectException(\LogicException::class);
+        $this->expectExceptionMessage('Either from or to must be set. Both cannot be null.');
         $agg = new DateRangeAggregation('test_agg');
         $agg->addRange(null, null);
     }

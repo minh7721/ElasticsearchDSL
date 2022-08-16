@@ -53,8 +53,8 @@ class BucketScriptAggregationTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetArrayException()
     {
-        $this->expectExceptionMessage("`test` aggregation must have script set.");
         $this->expectException(\LogicException::class);
+        $this->expectExceptionMessage('`test` aggregation must have script set.');
         $agg = new BucketScriptAggregation('test', []);
 
         $agg->getArray();

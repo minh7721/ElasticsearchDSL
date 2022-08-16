@@ -25,8 +25,8 @@ class BoolQueryTest extends \PHPUnit\Framework\TestCase
      */
     public function testBoolAddToBoolException()
     {
-        $this->expectExceptionMessage("The bool operator acme is not supported");
         $this->expectException(\UnexpectedValueException::class);
+        $this->expectExceptionMessage('The bool operator acme is not supported');
         $bool = new BoolQuery();
         $bool->add(new MatchAllQuery(), 'acme');
     }
@@ -83,8 +83,13 @@ class BoolQueryTest extends \PHPUnit\Framework\TestCase
      */
     public function testBoolConstructorException()
     {
+<<<<<<< HEAD
         $this->expectExceptionMessage("The bool operator acme is not supported");
         $this->expectException(\UnexpectedValueException::class);
+=======
+        $this->expectException(\UnexpectedValueException::class);
+        $this->expectExceptionMessage('The bool operator acme is not supported');
+>>>>>>> 6c412555354f92407045a93b42c393bfb49fb0fa
         new BoolQuery([
             'acme' => [new TermQuery('key1', 'value1')],
         ]);

@@ -12,7 +12,6 @@
 namespace ONGR\ElasticsearchDSL\Tests\Unit\Metric\Aggregation;
 
 use ONGR\ElasticsearchDSL\Aggregation\Metric\PercentileRanksAggregation;
-use phpDocumentor\Reflection\Types\Void_;
 
 /**
  * Percentile ranks aggregation unit tests.
