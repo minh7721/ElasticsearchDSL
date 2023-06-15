@@ -35,10 +35,11 @@ use ONGR\ElasticsearchDSL\SearchEndpoint\SuggestEndpoint;
 class Search
 {
     /**
-     * If you don’t need to track the total number of hits at all you can improve
-     * query times by setting this option to false. Defaults to true.
+     * The total number of hits. Defaults to true (10000 hits).
+     * You can improve query times by not tracking at all and setting this option to false
+     * or defining a number of hits you want to track.
      *
-     * @var bool
+     * @var bool|int
      */
     private $trackTotalHits;
 
@@ -478,7 +479,7 @@ class Search
     }
 
     /**
-     * @return bool
+     * @return bool|int
      */
     public function isTrackTotalHits()
     {
@@ -486,11 +487,11 @@ class Search
     }
 
     /**
-     * @param bool $trackTotalHits
+     * @param bool|int $trackTotalHits
      *
      * @return $this
      */
-    public function setTrackTotalHits(bool $trackTotalHits)
+    public function setTrackTotalHits(bool|int $trackTotalHits)
     {
         $this->trackTotalHits = $trackTotalHits;
 
