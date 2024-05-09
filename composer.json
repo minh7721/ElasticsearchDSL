@@ -1,5 +1,5 @@
 {
-    "name": "handcraftedinthealps/elasticsearch-dsl",
+    "name": "minh7721/elasticsearch-dsl",
     "description": "Elasticsearch DSL library",
     "type": "library",
     "homepage": "http://ongr.io",
@@ -21,7 +21,7 @@
     "require": {
         "ext-json": "*",
         "php": "^8.0",
-        "symfony/serializer": "^2.8 || ^3.4 || ^4.0 || ^5.0 || ^6.0",
+        "symfony/serializer": "^2.8 || ^3.4 || ^4.0 || ^5.0 || ^6.0 || ^7.0",
         "elasticsearch/elasticsearch": "^8.0"
     },
     "require-dev": {
